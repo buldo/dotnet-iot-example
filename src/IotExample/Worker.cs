@@ -35,6 +35,7 @@ internal class Worker : BackgroundService
     {
         var fontSize = 25;
         var font = "DejaVu Sans";
+        var drawPoint = new Point(0, 0);
 
         var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(100));
         while (await timer.WaitForNextTickAsync(stoppingToken))
@@ -45,7 +46,7 @@ internal class Worker : BackgroundService
             using var image = BitmapImage.CreateBitmap(128, 32, PixelFormat.Format32bppArgb);
             image.Clear(Color.Black);
             var drawingApi = image.GetDrawingApi();
-            drawingApi.DrawText(DateTime.Now.ToString("HH:mm:ss"), font, fontSize, Color.White, new Point(0, 0));
+            drawingApi.DrawText(DateTime.Now.ToString("HH:mm:ss"), font, fontSize, Color.White, drawPoint);
             _display.DrawBitmap(image);
         }
     }
